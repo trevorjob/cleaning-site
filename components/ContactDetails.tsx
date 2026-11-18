@@ -1,13 +1,18 @@
 import { contactPage } from "@/content/copy";
-import { contact } from "@/content/site";
+import { contact, contactLinks } from "@/content/site";
 
 const { labels } = contactPage;
 
 export function ContactDetails({ withHours = false, className = "" }: { readonly withHours?: boolean; readonly className?: string }) {
   const rows = [
-    { label: labels.phone, value: <a href={contact.phoneHref}>{contact.phoneDisplay}</a> },
-    { label: labels.email, value: <a href={`mailto:${contact.email}`} className="break-all">{contact.email}</a> },
-    { label: labels.whatsapp, value: <a href={contact.whatsappHref}>{labels.whatsappLink}</a> },
+    ...contactLinks.map((link) => ({
+      label: labels[link.kind],
+      value: (
+        <a href={link.href} className="break-all">
+          {link.kind === "whatsapp" ? labels.whatsappLink : link.text}
+        </a>
+      ),
+    })),
     ...(withHours
       ? [
           { label: labels.hours, value: contact.hours },

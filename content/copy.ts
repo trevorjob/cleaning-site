@@ -119,10 +119,11 @@ export const contactPage = {
   meta: {
     title: "Contact and quotes",
     description:
-      "Request a cleaning quote or contact Luxury Commercial Clean by phone, email or WhatsApp. Serving London, Kent and the South East.",
+      "Request a cleaning quote from Luxury Commercial Clean. Serving London, Kent and the South East.",
   },
   heading: "Start with a few details.",
-  intro: "Fill in the form and we'll reply within one working day, or get in touch directly.",
+  intro: "Fill in the form and we'll reply within one working day.",
+  introDirect: "Fill in the form and we'll reply within one working day, or get in touch directly.",
   picker: {
     legend: "What needs cleaning?",
     options: [

@@ -1,16 +1,17 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { VideoSource } from "@/lib/images";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 type AmbientVideoProps = {
-  readonly src: string;
+  readonly sources: readonly VideoSource[];
   readonly poster?: string;
   readonly className?: string;
 };
 
 /** Muted, looping background clip. Holds on its first frame when the visitor prefers reduced motion. */
-export function AmbientVideo({ src, poster, className = "" }: AmbientVideoProps) {
+export function AmbientVideo({ sources, poster, className = "" }: AmbientVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const reduced = usePrefersReducedMotion();
 
@@ -24,7 +25,6 @@ export function AmbientVideo({ src, poster, className = "" }: AmbientVideoProps)
   return (
     <video
       ref={videoRef}
-      src={src}
       poster={poster}
       autoPlay
       muted
@@ -33,6 +33,10 @@ export function AmbientVideo({ src, poster, className = "" }: AmbientVideoProps)
       preload="metadata"
       aria-hidden="true"
       className={`block h-full w-full object-cover ${className}`}
-    />
+    >
+      {sources.map((source) => (
+        <source key={source.src} src={source.src} type={source.type} />
+      ))}
+    </video>
   );
 }

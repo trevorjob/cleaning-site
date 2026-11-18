@@ -35,8 +35,9 @@ const jsonLd = {
   slogan: site.tagline,
   description: site.description,
   url: site.url,
-  telephone: contact.phoneHref.replace("tel:", ""),
-  email: contact.email,
+  logo: new URL("/brand/logo-512.png", site.url).href,
+  ...(contact.phone && { telephone: `+${contact.phone.international}` }),
+  ...(contact.email && { email: contact.email }),
   areaServed: [
     { "@type": "City", name: "London" },
     { "@type": "AdministrativeArea", name: "Kent" },
