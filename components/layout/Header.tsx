@@ -1,13 +1,19 @@
 import Link from "next/link";
 import { nav, quoteCta, site } from "@/content/site";
 import { ButtonLink } from "@/components/ui/Button";
+import { HeaderBar } from "./HeaderBar";
+import { HouseIcon } from "./icons";
 import { MobileMenu } from "./MobileMenu";
 
 export function Header() {
   return (
-    <header className="relative z-20 flex items-center justify-between gap-6 px-gutter pt-gutter text-small">
-      <Link href="/" className="font-medium" aria-label={`${site.legalName}, home`}>
-        {site.name}
+    <HeaderBar>
+      <Link
+        href="/"
+        aria-label={`${site.legalName}, home`}
+        className="-ml-2.5 grid size-12 place-items-center transition-colors hover:text-brass-text"
+      >
+        <HouseIcon />
       </Link>
       <nav aria-label="Main" className="hidden items-center gap-7 md:flex">
         <ul className="flex gap-7">
@@ -22,6 +28,6 @@ export function Header() {
         <ButtonLink href={quoteCta.href}>{quoteCta.label}</ButtonLink>
       </nav>
       <MobileMenu />
-    </header>
+    </HeaderBar>
   );
 }

@@ -1,4 +1,5 @@
 import { privacyPage as copy } from "@/content/copy";
+import Link from "next/link";
 import { company, contact, site } from "@/content/site";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -13,11 +14,24 @@ export default function PrivacyPage() {
       <div className="col-span-12 max-w-[60ch] md:col-span-6 md:col-start-7">
         <p className="text-muted">
           {site.legalName} ({company.registeredIn}, company no. {company.companyNumber}) is responsible for the personal
-          data you send through this website. Contact us at{" "}
-          <a href={`mailto:${contact.email}`} className="underline">
-            {contact.email}
-          </a>
-          .
+          data you send through this website.{" "}
+          {contact.email ? (
+            <>
+              Contact us at{" "}
+              <a href={`mailto:${contact.email}`} className="underline">
+                {contact.email}
+              </a>
+              .
+            </>
+          ) : (
+            <>
+              Contact us through the{" "}
+              <Link href="/contact" className="underline">
+                contact form
+              </Link>
+              .
+            </>
+          )}
         </p>
         {copy.sections.map((section) => (
           <section key={section.heading} className="mt-10">

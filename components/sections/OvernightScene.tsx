@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useMotionValue, useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import { useRef, useState } from "react";
 import { home } from "@/content/copy";
-import type { ResolvedImageSlot } from "@/lib/images";
+import type { ResolvedImageSlot, VideoSource } from "@/lib/images";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import { FitText } from "@/components/ui/FitText";
 import { ImageSlotView } from "@/components/ui/ImageSlotView";
@@ -25,7 +25,7 @@ type OvernightSceneProps = {
   readonly evening: ResolvedImageSlot;
   readonly morning: ResolvedImageSlot;
   /** When present, a scroll-scrubbed time-lapse replaces the two photos. */
-  readonly video: string | null;
+  readonly video: readonly VideoSource[] | null;
 };
 
 /** Pinned on the room while scroll runs the clock from 18:00 to 07:00, set huge across the bottom. */
@@ -55,7 +55,7 @@ export function OvernightScene({ evening, morning, video }: OvernightSceneProps)
       <div className={reduced ? "" : "sticky top-0 h-svh"}>
         <div className="relative h-svh overflow-hidden text-porcelain">
           {video ? (
-            <ScrubVideo src={video} progress={progress} className="absolute inset-0" />
+            <ScrubVideo sources={video} poster={evening.src ?? undefined} progress={progress} className="absolute inset-0" />
           ) : (
             <>
               <ImageSlotView slot={evening} className="absolute inset-0" sizes="100vw" />

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { servicesPage as copy } from "@/content/copy";
 import { serviceFaqs, services } from "@/content/services";
 import { pageMetadata } from "@/lib/metadata";
+import { PageLockup } from "@/components/brand/Lockup";
 import { ButtonLink } from "@/components/ui/Button";
 import { ImageSlot } from "@/components/ui/ImageSlot";
 import { Heading, Section } from "@/components/ui/Section";
@@ -11,7 +12,8 @@ export const metadata = pageMetadata({ ...copy.meta, path: "/services" });
 export default function ServicesPage() {
   return (
     <>
-      <section aria-labelledby="services-heading" className="page-grid gap-y-8 pt-24 md:pt-32">
+      <section aria-labelledby="services-heading" className="page-grid gap-y-8 pt-10 md:pt-14">
+        <PageLockup className="col-span-12 mb-8 md:mb-12" />
         <h1 id="services-heading" className="serif col-span-12 text-head md:col-span-8">
           {copy.heading}
         </h1>

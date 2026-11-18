@@ -15,14 +15,11 @@ Save each result into `public/images/` with the exact filename shown. The site p
 | `hero.mp4` | 16:9, 6 s, seamless loop | Macro slow-motion shot of a black-gloved hand gliding a folded grey microfibre cloth across a white marble worktop. A faint film of moisture evaporates behind the cloth, leaving a flawless polished shine. Low, raking morning sunlight skims the surface so the cleaned path gleams. Shallow depth of field, locked-off camera, calm and precise. No text. |
 | `overnight.mp4` | 16:9, 8 s | Time-lapse from a fixed camera of an open-plan office from 6pm to 7am. It starts genuinely messy: coffee cups, takeaway bags, papers and laptops left on desks, chairs pushed out at angles. Motion-blurred, ghostly figures in dark green aprons move through the room with a cleaning trolley, clearing the desks one by one, wiping surfaces, pushing chairs in and vacuuming. Outside the windows, dusk turns to night city lights, then to soft dawn. It ends with the room spotless and still in morning daylight. No faces readable. |
 
-After generating, take the poster image for the hero from the video: `ffmpeg -i public/images/hero.mp4 -frames:v 1 -q:v 2 public/images/hero.jpg`
-
-Convert the overnight video for smooth scrolling and pull its first and last frames for the before/after slider (I can run these for you):
+After generating, run each clip through the encoder. It writes a small AV1 file and an H.264 fallback, and pulls the hero poster and the two Overnight frames for the before/after slider:
 
 ```bash
-ffmpeg -i input.mp4 -vf "scale='min(1920,iw)':-2" -c:v libx264 -g 1 -crf 24 -pix_fmt yuv420p -an -movflags +faststart public/images/overnight.mp4
-ffmpeg -i public/images/overnight.mp4 -frames:v 1 -q:v 2 public/images/overnight-evening.jpg
-ffmpeg -sseof -0.1 -i public/images/overnight.mp4 -frames:v 1 -q:v 2 public/images/overnight-morning.jpg
+scripts/encode-videos.sh hero path/to/hero.mp4
+scripts/encode-videos.sh overnight path/to/overnight.mp4
 ```
 
 ## Statement section

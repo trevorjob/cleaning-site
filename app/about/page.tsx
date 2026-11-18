@@ -3,6 +3,7 @@ import { quoteCta } from "@/content/site";
 import { pageMetadata } from "@/lib/metadata";
 import { resolveImageSlot } from "@/lib/images";
 import { PolishGlass } from "@/components/about/PolishGlass";
+import { PageLockup } from "@/components/brand/Lockup";
 import { ButtonLink } from "@/components/ui/Button";
 import { Heading, Section } from "@/components/ui/Section";
 
@@ -11,9 +12,10 @@ export const metadata = pageMetadata({ ...copy.meta, path: "/about" });
 export default function AboutPage() {
   return (
     <>
-      <section aria-labelledby="about-heading" className="page-grid items-end gap-y-12 pt-24 md:pt-32">
-        <div className="col-span-12 md:col-span-6">
-          <h1 id="about-heading" className="serif text-head">
+      <section aria-labelledby="about-heading" className="page-grid items-end gap-y-12 pt-10 md:pt-14">
+        <div className="col-span-12 flex flex-col self-stretch md:col-span-6">
+          <PageLockup className="mb-16 md:mb-auto" />
+          <h1 id="about-heading" className="serif text-head md:mt-16">
             {copy.heading}
           </h1>
           {copy.paragraphs.map((p) => (

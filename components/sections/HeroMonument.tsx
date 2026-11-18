@@ -4,8 +4,9 @@ import { easeInOut, motion, useMotionValue, useScroll, useTransform, type Motion
 import { useLayoutEffect, useRef, useState } from "react";
 import { home } from "@/content/copy";
 import { quoteCta } from "@/content/site";
-import type { ResolvedImageSlot } from "@/lib/images";
+import type { ResolvedImageSlot, VideoSource } from "@/lib/images";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
+import { PageLockup } from "@/components/brand/Lockup";
 import { AmbientVideo } from "@/components/ui/AmbientVideo";
 import { ButtonLink } from "@/components/ui/Button";
 import { FitText } from "@/components/ui/FitText";
@@ -13,7 +14,7 @@ import { ImageSlotView } from "@/components/ui/ImageSlotView";
 
 type HeroMonumentProps = {
   readonly image: ResolvedImageSlot;
-  readonly video: string | null;
+  readonly video: readonly VideoSource[] | null;
 };
 
 const [first, second, third] = home.hero.lines;
@@ -76,11 +77,13 @@ export function HeroMonument({ image, video }: HeroMonumentProps) {
   return (
     <section ref={sectionRef} aria-labelledby="hero-heading" className={isScene ? "h-[220svh]" : ""}>
       <div ref={stageRef} className={isScene ? "sticky top-0 h-svh overflow-hidden" : "relative"}>
-        <div className="flex h-[calc(100svh-4.5rem)] flex-col justify-end px-gutter pt-10">
+        <div className="flex h-[calc(100svh-4.5rem)] flex-col justify-end px-gutter pt-4">
+          <PageLockup className="animate-fade mb-6 shrink-0 md:mb-auto" />
           <div ref={phoneSlotRef} className="animate-fade mb-gutter min-h-0 flex-1 overflow-hidden bg-stone md:hidden">
             {poster}
           </div>
-          <h1 id="hero-heading" aria-label={home.hero.lines.join(" ")} className="grid">
+          {/* The name is ~2.85x as wide as tall: on short laptop screens this caps it so the logo above still fits. */}
+          <h1 id="hero-heading" aria-label={home.hero.lines.join(" ")} className="grid md:max-w-[calc((100svh-24rem)*2.85)]">
             <span aria-hidden="true" className="wide block overflow-hidden">
               <FitText className="animate-rise">{first}</FitText>
             </span>
@@ -109,7 +112,7 @@ export function HeroMonument({ image, video }: HeroMonumentProps) {
             style={{ left, top, width, height }}
             className={`absolute overflow-hidden transition-opacity duration-500 ${isMeasured ? "opacity-100" : "opacity-0"}`}
           >
-            <AmbientVideo src={video} poster={image.src ?? undefined} />
+            <AmbientVideo sources={video} poster={image.src ?? undefined} />
             <motion.div style={{ opacity: captionOpacity }} className="absolute inset-0 flex items-end bg-ink/25 px-gutter pb-gutter">
               <p className="serif max-w-[16ch] text-head text-porcelain">{home.hero.film}</p>
             </motion.div>
